@@ -41,16 +41,25 @@ RSpec.describe 'competition show spec' do
     expect(page).to have_content(33.8)
   end
 
-  xit 'has a link to register a new team' do
+  it 'has a link to register a new team' do
+    expect(page).to have_link("Register a New Team")
 
-    # As a user
-    # When I visit a competition's show page
-    # Then I see a link to register a new team
-    # When I click this link
-    # Then I am taken to a new page where I see a form
-    # When I fill in this form with a team's hometown and nickname
-    # And I click submit
-    # Then I am redirected back to the competition's show page
-    # And I see the new team I created listed
+    click_on("Register a New Team")
+
+    expect(current_path).to eq("/competitions/#{@comp1.id}/teams/new")
+  end
+
+  it 'has a form to create a new team for a competition' do
+    click_on("Register a New Team")
+
+    fill_in("Nickname", with: "Kitten Mittens")
+    fill_in("Hometown", with: "Feline City")
+
+    click_on("Submit")
+
+    expect(current_path).to eq("/competitions/#{@comp1.id}")
+
+    expect(page).to have_content("Kitten Mittens")
+    expect(page).to have_content("Feline City")
   end
 end
