@@ -16,23 +16,17 @@ RSpec.describe 'competition show spec' do
 
     @player5 = @team3.players.create!(name: 'Jason', age: 40)
     @player6 = @team3.players.create!(name: 'Jacob', age: 25)
+
+    visit "/competitions/#{@comp1.id}"
   end
 
   it "displays the competition's name, location, and sport" do
-    visit "/competitions"
-
-    click_on(@comp1.name)
-
     expect(page).to have_content(@comp1.name)
     expect(page).to have_content(@comp1.location)
     expect(page).to have_content(@comp1.sport)
   end
 
   it "displays the nickname and hometown of all teams in this competition" do
-    visit "/competitions"
-
-    click_on(@comp1.name)
-
     expect(page).to have_content(@team1.nickname)
     expect(page).to have_content(@team1.hometown)
 
@@ -44,10 +38,19 @@ RSpec.describe 'competition show spec' do
   end
 
   it 'displays the average age of all players in the competition' do
-    visit "/competitions"
-
-    click_on(@comp1.name)
-
     expect(page).to have_content(33.8)
+  end
+
+  xit 'has a link to register a new team' do
+
+    # As a user
+    # When I visit a competition's show page
+    # Then I see a link to register a new team
+    # When I click this link
+    # Then I am taken to a new page where I see a form
+    # When I fill in this form with a team's hometown and nickname
+    # And I click submit
+    # Then I am redirected back to the competition's show page
+    # And I see the new team I created listed
   end
 end
