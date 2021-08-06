@@ -5,14 +5,13 @@ class TeamsController < ApplicationController
 
   def create
     competition = Competition.find(params[:competition_id])
-    competition.teams.create!(nickname: params[:nickname], hometown: params[:hometown])
+    competition.teams.create!(team_params)
     # do i need to create this in the joins table TeamCompetitions?
-
     redirect_to "/competitions/#{params[:competition_id]}"
   end
 
-  # private
-  # def _params
-  #   params.permit(:)
-  # end
+  private
+  def team_params
+    params.permit(:hometown, :nickname)
+  end
 end
